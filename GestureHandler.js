@@ -407,6 +407,8 @@ const PanGestureHandler = createHandler(
     maxDeltaY: PropTypes.number,
     minOffsetX: PropTypes.number,
     minOffsetY: PropTypes.number,
+    maxOffsetX: PropTypes.number,
+    maxOffsetY: PropTypes.number,
     minDist: PropTypes.number,
     minVelocity: PropTypes.number,
     minVelocityX: PropTypes.number,
