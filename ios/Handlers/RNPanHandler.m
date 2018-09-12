@@ -16,8 +16,8 @@
 @property (nonatomic) CGFloat minDeltaY;
 @property (nonatomic) CGFloat minOffsetX;
 @property (nonatomic) CGFloat minOffsetY;
-@property (nonatomic) CGFloat maxOffsetX;
-@property (nonatomic) CGFloat maxOffsetY;
+@property (nonatomic) CGFloat activeOffsetStart;
+@property (nonatomic) CGFloat activeOffsetEnd;
 @property (nonatomic) CGFloat minDistSq;
 @property (nonatomic) CGFloat minVelocityX;
 @property (nonatomic) CGFloat minVelocityY;
@@ -46,8 +46,8 @@
         _maxDeltaY = NAN;
         _minOffsetX = NAN;
         _minOffsetY = NAN;
-        _maxOffsetX = NAN;
-        _maxOffsetY = NAN;
+        _activeOffsetStart = NAN;
+        _activeOffsetEnd = NAN;
         _minDistSq = NAN;
         _minVelocityX = NAN;
         _minVelocityY = NAN;
@@ -116,7 +116,7 @@
 {
     _hasCustomActivationCriteria = !isnan(_minDistSq) || !isnan(_minDeltaX) || !isnan(_minDeltaY)
     || !isnan(_minOffsetX) || !isnan(_minOffsetY)
-    || !isnan(_maxOffsetX) || !isnan(_maxOffsetY)
+    || !isnan(_activeOffsetStart) || !isnan(_activeOffsetEnd)
     || !isnan(_minVelocityX) || !isnan(_minVelocityY) || !isnan(_minVelocitySq);
 }
 
@@ -130,20 +130,8 @@
         return YES;
     }
 
-    if(!isnan(_maxOffsetX)) {
-        if (!isnan(_minOffsetX) && trans.x < _minOffsetX) {
-            return YES;
-        }
-        if (TEST_MAX_IF_NOT_NAN(trans.x, _maxOffsetX)) {
-            return YES;
-        }
-    }
-
-    if(!isnan(_maxOffsetY)) {
-        if (!isnan(_minOffsetY) && trans.y < _minOffsetY) {
-            return YES;
-        }
-        if (TEST_MAX_IF_NOT_NAN(trans.y, _maxOffsetY)) {
+    if(!isnan(_activeOffsetStart) && !isnan(_activeOffsetEnd)) {
+        if (trans.y < _activeOffsetStart || trans.y > _minOffsetX) {
             return YES;
         }
     }
@@ -207,8 +195,8 @@
     APPLY_FLOAT_PROP(maxDeltaY);
     APPLY_FLOAT_PROP(minOffsetX);
     APPLY_FLOAT_PROP(minOffsetY);
-    APPLY_FLOAT_PROP(maxOffsetX);
-    APPLY_FLOAT_PROP(maxOffsetY);
+    APPLY_FLOAT_PROP(activeOffsetStart);
+    APPLY_FLOAT_PROP(activeOffsetEnd);
     APPLY_FLOAT_PROP(minVelocityX);
     APPLY_FLOAT_PROP(minVelocityY);
 
